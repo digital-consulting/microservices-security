@@ -28,19 +28,21 @@ Like browser-based apps, mobile apps also cannot maintain the confidentiality of
 
 ### The API Gateway  
 Probably the most obvious approach to communicating with microservices from the external world is having an API Gateway.  
-The API Gateway is the entry point to all the services that your application is providing. It’s responsible for service discovery (from the client side), routing the requests coming from external callers to the right microservices, and fanning out to different microservices if different capabilities were requested by an external caller (imagine a web page with dashboards delivered by different microservices). If you take a deeper look at the API Gateways, you’ll find them to be a manifestation of the famous façade design pattern. 
+The API Gateway is the entry point to all the services that your application is providing. It’s responsible for service discovery (from the client side), routing the requests coming from external callers to the right microservices, and fanning out to different microservices if different capabilities were requested by an external caller (imagine a web page with dashboards delivered by different microservices). If you take a deeper look at the API Gateways, you’ll find them to be a manifestation of the famous [facade design pattern](https://en.wikipedia.org/wiki/Facade_pattern). 
 
 From the security point of view, API Gateways usually handle the authentication and authorization from the external callers to the microservice level. 
 **OAuth delegated authorization** along with **JSON Web Tokens (JWT)** is the most **efficient and scalable** solution for authentication and authorization for microservices.
 
 ![gateway1](img/gateway01.PNG)
 
-To illustrate further, a user starts by sending his credentials to the API gateway which will forward the credentials to the Authorization Server (AS) or the OAuth Server. The AS will generate a JASON Web Token (JWT) and will return it back to the user.  
+To illustrate further, a user starts by sending his credentials to the API gateway which will forward the credentials to the Authorization Server (AS) or the OAuth Server. The AS will generate a JSON Web Token (JWT) and will return it back to the user.  
 
 ![gateway2](img/gateway02.PNG)
 
 Whenever the user wants to access a certain resource, he’ll request it from the API Gateway and will send the **JWT** along with his request. 
+
 The **API Gateway** will forward the request with the JWT to the microservice that owns this resource. 
+
 The **microservice** will then decide to either grant the user the resource (if the user has the required permissions) or not. Based on the implementation, the microservice can make this decision by itself (if it knows the permissions of this user over this resource) or simply forward the request to one of the Authorization Servers within the environment to determine the user’s permissions.
 
 The approach above is much more scalable than the traditional centralized session management. It allows every individual microservice to handle the security of its own resources. If a centralized decision is needed, the OAuth server is there to share permissions with the different microservices.
