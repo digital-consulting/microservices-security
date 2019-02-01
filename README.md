@@ -2,7 +2,12 @@
 
 While designing microservices, a big monolithic application is broken down into smaller services that can be independently developed and deployed. The final application will have more HTTP calls than a single monolithic application, how can we protect these calls between services?
 
-While a **microservices architecture** makes building software easier, managing the security of microservices has become a challenge. Managing the security of the traditional monolithic applications is quite different than managing the security of a microservices application. For example, in the monolithic application, it is easy to implement a centralized security module that manages authentication, authorization, and other security operations; with the distributed nature of microservices, having a centralized security module could impact efficiency and defeat the main purpose of the architecture. The same issues hold true for data sharing: monolithic applications share data between the different modules of the app “in-memory” or in a “centralized database,” which is a challenge with the distributed microservices. 
+While a **microservices architecture** makes building software easier, managing the security of microservices has become a challenge. Managing the security of the traditional monolithic applications is quite different than managing the security of a microservices application. In the monolithic application it is easy to implement a centralized security module that manages authentication, authorization and other security operations. With the **distributed** nature of microservices, having a centralized security module could impact efficiency and defeat the main purpose of the architecture. The same issues hold true for data sharing: monolithic applications share data between the different modules of the app “in-memory” or in a “centralized database,” which is a challenge with the distributed microservices. 
+
+## Solution
+
+**OAuth delegated authorization** along with **JSON Web Tokens (JWT)** is the most **efficient and scalable** solution for authentication and authorization for microservices.
+
 
 ## Requirement
 
@@ -31,7 +36,6 @@ Probably the most obvious approach to communicating with microservices from the 
 The API Gateway is the entry point to all the services that your application is providing. It’s responsible for service discovery (from the client side), routing the requests coming from external callers to the right microservices, and fanning out to different microservices if different capabilities were requested by an external caller (imagine a web page with dashboards delivered by different microservices). If you take a deeper look at the API Gateways, you’ll find them to be a manifestation of the famous [facade design pattern](https://en.wikipedia.org/wiki/Facade_pattern). 
 
 From the security point of view, API Gateways usually handle the authentication and authorization from the external callers to the microservice level. 
-**OAuth delegated authorization** along with **JSON Web Tokens (JWT)** is the most **efficient and scalable** solution for authentication and authorization for microservices.
 
 ![gateway1](img/gateway01.PNG)
 
